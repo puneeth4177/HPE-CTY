@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+      - name: demo-app
+        image: docker.io/niths1271/demo-app
+        ports:
+        - containerPort: 3000
+        resources:
+          # You must specify requests for CPU to autoscale
+          # based on CPU utilization
+          requests:
+            cpu: 100m
